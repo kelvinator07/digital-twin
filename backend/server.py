@@ -10,6 +10,7 @@ from datetime import datetime
 import boto3
 from botocore.exceptions import ClientError
 from context import prompt
+from openai import OpenAI
 
 # Load environment variables
 load_dotenv()
@@ -31,6 +32,10 @@ bedrock_client = boto3.client(
     service_name="bedrock-runtime", 
     region_name=os.getenv("DEFAULT_AWS_REGION", "us-east-1")
 )
+
+# Initialize OpenAI client
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 
 # Bedrock model selection - see Q42 on https://edwarddonner.com/faq for more
 BEDROCK_MODEL_ID = os.getenv("BEDROCK_MODEL_ID", "amazon.nova-2-lite-v1:0")
@@ -158,6 +163,34 @@ def call_bedrock(conversation: List[Dict], user_message: str) -> str:
             raise HTTPException(status_code=500, detail=f"Bedrock error: {str(e)}")
 
 
+
+def call_openai(conversation: List[Dict], user_message: str) -> str:
+    """Call OPEN AI with conversation history"""
+    
+    try:
+        # Build messages for OpenAI
+        messages = [{"role": "system", "content": prompt()}]
+
+        # Add conversation history (keep last 50 messages for context window)
+        for msg in conversation[-50:]:
+            messages.append({"role": msg["role"], "content": msg["content"]})
+
+        # Add current user message
+        messages.append({"role": "user", "content": user_message})
+
+        # Call OpenAI API
+        response = client.chat.completions.create(
+            model="gpt-4o-mini", 
+            messages=messages
+        )
+
+        return response.choices[0].message.content
+
+    except Exception as e:
+        print(f"Error in chat endpoint: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/")
 async def root():
     return {
@@ -187,7 +220,7 @@ async def chat(request: ChatRequest):
         conversation = load_conversation(session_id)
 
         # Call Bedrock for response
-        assistant_response = call_bedrock(conversation, request.message)
+        assistant_response = call_openai(conversation, request.message)
 
         # Update conversation history
         conversation.append(
