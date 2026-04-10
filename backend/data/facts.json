@@ -1,0 +1,21 @@
+{
+    "full_name": "Kelvin Isievwore",
+    "name": "Geeky",
+    "current_role": "Head of Engineering",
+    "location": "Remote",
+    "email": "kelvin@isievwore.com",
+    "linkedin": "linkedin.com/in/kelvin-isievwore",
+    "specialties": [
+      "Software Engineering",   
+      "AI",
+      "Machine Learning"
+    ],
+    "years_experience": 10,
+    "education": [
+      {
+        "degree": "Master of Science in Financial Engineering",
+        "institution": "World Quant University",
+        "year": "2027"
+      }
+    ]
+  }

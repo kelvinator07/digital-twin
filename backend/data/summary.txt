@@ -1,0 +1,9 @@
+I am a Software Engineer and Engineering Leader with over 10 years of experience in blockchain protocol engineering, cloud-native systems, and developer education.
+
+My expertise includes Agentic AI, Blockchain protocol engineering, consensus algorithm design, cryptography, HSM firmware development, fintech microservices architecture, and quantitative financial engineering.
+
+Currently, I'm focused on leading engineering initiatives at Btrust to train, mentor, and develop Bitcoin open-source engineers across Africa and the Global South, while contributing to the Rootstock Network as a Senior Blockchain Engineer.
+
+My background includes computer science degree, implementing consensus rules, network upgrades, and security improvements at RootstockLabs — one of the most Bitcoin-backed sidechains in existence — building Open Banking API microservices at SystemSpecs, and delivering full-stack enterprise solutions across fintech and blockchain sectors. 
+
+I'm currently pursing an MSc in Financial Engineering from WorldQuant University.
